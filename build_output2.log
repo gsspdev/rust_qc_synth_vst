@@ -1,0 +1,77 @@
+   Compiling rust_vst_synth_qc_claude v0.1.0 (/Users/gssp/Developer/rust_vst_qc_claude)
+error[E0252]: the name `HostCallback` is defined multiple times
+ --> src/lib.rs:9:5
+  |
+7 | use vst::prelude::HostCallback;
+  |     -------------------------- previous import of the type `HostCallback` here
+8 | use vst::util::AtomicFloat;
+9 | use vst::plugin::HostCallback;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^ `HostCallback` reimported here
+  |
+  = note: `HostCallback` must be defined only once in the type namespace of this module
+
+error[E0412]: cannot find type `Events` in this scope
+  --> src/lib.rs:98:43
+   |
+98 |     fn process_events(&mut self, events: &Events) {
+   |                                           ^^^^^^
+   |
+  ::: /Users/gssp/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vst-0.3.0/src/event.rs:10:1
+   |
+10 | pub enum Event<'a> {
+   | ------------------ similarly named enum `Event` defined here
+   |
+help: an enum with a similar name exists
+   |
+98 |     fn process_events(&mut self, events: &Event) {
+   |                                           ~~~~~
+help: consider importing this struct
+   |
+4  + use vst::prelude::Events;
+   |
+
+error[E0412]: cannot find type `Supported` in this scope
+   --> src/lib.rs:116:53
+    |
+116 |     fn can_do(&self, can_do: vst::plugin::CanDo) -> Supported {
+    |                                                     ^^^^^^^^^ not found in this scope
+    |
+help: consider importing this enum
+    |
+4   + use vst::prelude::Supported;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Supported`
+   --> src/lib.rs:118:53
+    |
+118 |             vst::plugin::CanDo::ReceiveMidiEvent => Supported::Yes,
+    |                                                     ^^^^^^^^^ use of undeclared type `Supported`
+    |
+help: consider importing this enum
+    |
+4   + use vst::prelude::Supported;
+    |
+
+error[E0433]: failed to resolve: use of undeclared type `Supported`
+   --> src/lib.rs:119:18
+    |
+119 |             _ => Supported::Maybe,
+    |                  ^^^^^^^^^ use of undeclared type `Supported`
+    |
+help: consider importing this enum
+    |
+4   + use vst::prelude::Supported;
+    |
+
+warning: unused import: `vst::plugin::HostCallback`
+ --> src/lib.rs:9:5
+  |
+9 | use vst::plugin::HostCallback;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+Some errors have detailed explanations: E0252, E0412, E0433.
+For more information about an error, try `rustc --explain E0252`.
+warning: `rust_vst_synth_qc_claude` (lib) generated 1 warning
+error: could not compile `rust_vst_synth_qc_claude` (lib) due to 5 previous errors; 1 warning emitted
